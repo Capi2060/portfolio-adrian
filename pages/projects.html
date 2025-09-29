@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proyectos - PortfolioAdri</title>
+    <meta name="description" content="Portfolio de configuraciones realizadas - Plugins, bots de Discord y sistemas configurados">
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="../src/styles/main.css" as="style">
+    <link rel="preload" href="../src/scripts/animations.js" as="script">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="../src/styles/main.css">
+    <link rel="stylesheet" href="../src/styles/variables.css">
+    
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="navbar-container">
+            <div class="navbar-brand">
+                <a href="../index.html" class="brand-link">
+                    <span class="brand-text aurora-text" data-text="Adrián">Adrián</span>
+                </a>
+            </div>
+            
+            <div class="navbar-menu" id="navbar-menu">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a href="../index.html" class="nav-link">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="about.html" class="nav-link">Sobre mí</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="services.html" class="nav-link">Servicios</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="projects.html" class="nav-link active">Proyectos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="servers.html" class="nav-link">Servidores</a>
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="navbar-toggle" id="navbar-toggle">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Hero Section -->
+        <section class="page-hero">
+            <div class="hero-background">
+                <div class="stars"></div>
+            </div>
+            
+            <div class="hero-container">
+                <div class="hero-content" data-aos="fade-up">
+                    <h1 class="hero-title">Proyectos</h1>
+                    <p class="hero-subtitle">Explora mi portfolio de proyectos desarrollados</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Content -->
+        <section class="projects-section">
+            <div class="container">
+                <!-- Filter Tabs -->
+                <div class="project-filters" data-aos="fade-up">
+                    <button class="filter-btn active" data-filter="all">Todos</button>
+                    <button class="filter-btn" data-filter="discord">Configuración de Bots</button>
+                    <button class="filter-btn" data-filter="minecraft">Plugins Minecraft</button>
+                    <button class="filter-btn" data-filter="automation">Sistemas de Tickets</button>
+                    <button class="filter-btn" data-filter="tools">Permisos & Menús</button>
+                </div>
+
+                <!-- Projects Grid -->
+                <div class="projects-grid">
+                    <!-- Project 1 -->
+                    <div class="project-card" data-category="discord automation" data-aos="fade-up" data-aos-delay="100">
+                        <div class="project-image">
+                            <img src="../public/assets/projects/discord-bot-config.jpg" alt="Configuración de Bot Discord" class="project-img">
+                            <div class="project-overlay">
+                                <div class="project-links">
+                                    <a href="#" class="project-link" title="Ver Demo">
+                                        <i class="fas fa-external-link-alt"></i>
+                                    </a>
+                                    <a href="#" class="project-link" title="Ver Configuración">
+                                        <i class="fas fa-code"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="project-content">
+                            <div class="project-tags">
+                                <span class="tag">MEE6</span>
+                                <span class="tag">Carl-bot</span>
+                                <span class="tag">Autoroles</span>
+                            </div>
+                            <h3 class="project-title">Configuración de Bot de Moderación</h3>
+                            <p class="project-description">
+                                Configuración completa de bot de Discord con sistema de autoroles automático, 
+                                comandos personalizados, sistema de logs y moderación automática.
+                            </p>
+                            <div class="project-stats">
+                                <span class="stat">
+                                    <i class="fas fa-clock"></i>
+                                    1 semana
+                                </span>
+                                <span class="stat">
+                                    <i class="fas fa-users"></i>
+                                    1000+ miembros
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Project 2 -->
+                    <div class="project-card" data-category="minecraft tools" data-aos="fade-up" data-aos-delay="200">
+                        <div class="project-image">
+                            <img src="../public/assets/projects/luckperms-config.jpg" alt="Configuración LuckPerms" class="project-img">
+                            <div class="project-overlay">
+                                <div class="project-links">
+                                    <a href="#" class="project-link" title="Ver Demo">
+                                        <i class="fas fa-external-link-alt"></i>
+                                    </a>
+                                    <a href="#" class="project-link" title="Ver Configuración">
+                                        <i class="fas fa-code"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="project-content">
+                            <div class="project-tags">
+                                <span class="tag">LuckPerms</span>
+                                <span class="tag">Rangos</span>
+                                <span class="tag">Permisos</span>
+                            </div>
+                            <h3 class="project-title">Sistema de Permisos Completo</h3>
+                            <p class="project-description">
+                                Configuración completa de LuckPerms con sistema de rangos jerárquico, 
+                                permisos personalizados y grupos de usuarios para servidor de Minecraft.
+                            </p>
+                            <div class="project-stats">
+                                <span class="stat">
+                                    <i class="fas fa-clock"></i>
+                                    3 días
+                                </span>
+                                <span class="stat">
+                                    <i class="fas fa-users"></i>
+                                    50+ rangos
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Project 3 -->
+                    <div class="project-card" data-category="automation tools" data-aos="fade-up" data-aos-delay="300">
+                        <div class="project-image">
+                            <img src="../public/assets/projects/ticket-system.jpg" alt="Sistema de Tickets" class="project-img">
+                            <div class="project-overlay">
+                                <div class="project-links">
+                                    <a href="#" class="project-link" title="Ver Demo">
+                                        <i class="fas fa-external-link-alt"></i>
+                                    </a>
+                                    <a href="#" class="project-link" title="Ver Configuración">
+                                        <i class="fas fa-code"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="project-content">
+                            <div class="project-tags">
+                                <span class="tag">Ticket Tool</span>
+                                <span class="tag">Reportes</span>
+                                <span class="tag">Discord</span>
+                            </div>
+                            <h3 class="project-title">Sistema de Tickets y Reportes</h3>
+                            <p class="project-description">
+                                Configuración completa de sistema de tickets para Discord con categorías 
+                                automáticas, asignación de staff y sistema de reportes integrado.
+                            </p>
+                            <div class="project-stats">
+                                <span class="stat">
+                                    <i class="fas fa-clock"></i>
+                                    2 días
+                                </span>
+                                <span class="stat">
+                                    <i class="fas fa-ticket-alt"></i>
+                                    500+ tickets
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project Stats -->
+                <div class="project-stats-section" data-aos="fade-up">
+                    <h2 class="section-title">Estadísticas de Proyectos</h2>
+                    <div class="stats-grid">
+                        <div class="stat-card" data-aos="fade-up" data-aos-delay="100">
+                            <div class="stat-icon">
+                                <i class="fas fa-cogs"></i>
+                            </div>
+                            <div class="stat-number">50+</div>
+                            <div class="stat-label">Configuraciones Completadas</div>
+                        </div>
+                        
+                        <div class="stat-card" data-aos="fade-up" data-aos-delay="200">
+                            <div class="stat-icon">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <div class="stat-number">5,000+</div>
+                            <div class="stat-label">Usuarios Configurados</div>
+                        </div>
+                        
+                        <div class="stat-card" data-aos="fade-up" data-aos-delay="300">
+                            <div class="stat-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="stat-number">24/7</div>
+                            <div class="stat-label">Soporte Disponible</div>
+                        </div>
+                        
+                        <div class="stat-card" data-aos="fade-up" data-aos-delay="400">
+                            <div class="stat-icon">
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <div class="stat-number">100%</div>
+                            <div class="stat-label">Satisfacción del Cliente</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CTA Section -->
+                <div class="cta-section" data-aos="fade-up">
+                    <div class="cta-content">
+                        <h2 class="cta-title">¿Necesitas configurar plugins o bots?</h2>
+                        <p class="cta-description">
+                            Trabajemos juntos para configurar tu servidor. Contacta conmigo para discutir tus necesidades de configuración de plugins y bots.
+                        </p>
+                        <a href="#" class="btn btn-primary">
+                            <i class="fas fa-rocket"></i>
+                            Configurar Plugins
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer-modern">
+        <div class="footer-container">
+            <div class="footer-content">
+                <!-- Logo y Brand -->
+                <div class="footer-brand">
+                    <div class="brand-logo">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 200 200" width="48" height="48" class="logo-icon">
+                            <g clipPath="url(#cs_clip_1_flower-3)">
+                                <mask id="cs_mask_1_flower-3" style="mask-type: alpha;" width="200" height="200" x="0" y="0" maskUnits="userSpaceOnUse">
+                                    <path fill="#fff" d="M200 50c0-27.614-22.386-50-50-50s-50 22.386-50 50c0-27.614-22.386-50-50-50S0 22.386 0 50s22.386 50 50 50c-27.614 0-50 22.386-50 50s22.386 50 50 50 50-22.386 50-50c0 27.614 22.386 50 50 50s50-22.386 50-50c0-27.608-22.375-49.989-49.98-50C177.625 99.99 200 77.608 200 50z"></path>
+                                </mask>
+                                <g mask="url(#cs_mask_1_flower-3)">
+                                    <path fill="#fff" d="M200 0H0v200h200V0z"></path>
+                                    <path fill="url(#paint0_linear_748_4691)" fill-opacity="0.55" d="M200 0H0v200h200V0z"></path>
+                                    <g filter="url(#filter0_f_748_4691)">
+                                        <path fill="#FFD700" d="M131 3H-12v108h143V3z"></path>
+                                        <path fill="#E6C200" d="M190 109H0v116h190V109z"></path>
+                                        <ellipse cx="153.682" cy="64.587" fill="#FFD700" rx="83" ry="57" transform="rotate(-33.875 153.682 64.587)"></ellipse>
+                                    </g>
+                                </g>
+                            </g>
+                            <defs>
+                                <filter id="filter0_f_748_4691" width="361.583" height="346.593" x="-72" y="-61.593" colorInterpolationFilters="sRGB" filterUnits="userSpaceOnUse">
+                                    <feFlood floodOpacity="0" result="BackgroundImageFix"></feFlood>
+                                    <feBlend in="SourceGraphic" in2="BackgroundImageFix" result="shape"></feBlend>
+                                    <feGaussianBlur result="effect1_foregroundBlur_748_4691" stdDeviation="30"></feGaussianBlur>
+                                </filter>
+                                <linearGradient id="paint0_linear_748_4691" x1="200" x2="0" y1="0" y2="200" gradientUnits="userSpaceOnUse">
+                                    <stop stopColor="#FFD700"></stop>
+                                    <stop offset="1" stopColor="#E6C200"></stop>
+                                </linearGradient>
+                                <clipPath id="cs_clip_1_flower-3">
+                                    <path fill="#fff" d="M0 0H200V200H0z"></path>
+                                </clipPath>
+                            </defs>
+                            <g style="mix-blend-mode: overlay;" mask="url(#cs_mask_1_flower-3)">
+                                <path fill="gray" stroke="transparent" d="M200 0H0v200h200V0z" filter="url(#cs_noise_1_flower-3)"></path>
+                            </g>
+                            <defs>
+                                <filter id="cs_noise_1_flower-3" width="100%" height="100%" x="0%" y="0%" filterUnits="objectBoundingBox">
+                                    <feTurbulence baseFrequency="0.6" numOctaves="5" result="out1" seed="4"></feTurbulence>
+                                    <feComposite in="out1" in2="SourceGraphic" operator="in" result="out2"></feComposite>
+                                    <feBlend in="SourceGraphic" in2="out2" mode="overlay" result="out3"></feBlend>
+                                </filter>
+                            </defs>
+                        </svg>
+                    </div>
+                    <span class="brand-text aurora-text" data-text="Adrian">Adrian</span>
+                </div>
+
+                <!-- Navigation Links -->
+                <nav class="footer-nav">
+                    <ul class="nav-links">
+                        <li><a href="about.html" class="nav-link">Sobre mí</a></li>
+                        <li><a href="services.html" class="nav-link">Servicios</a></li>
+                        <li><a href="projects.html" class="nav-link">Proyectos</a></li>
+                        <li><a href="servers.html" class="nav-link">Servidores</a></li>
+                    </ul>
+                </nav>
+
+                <!-- Social Links -->
+                <div class="social-links">
+                    <a href="https://discord.com/users/.adriii_" class="social-link discord" target="_blank" rel="noopener" aria-label="Discord">
+                        <img src="../public/assets/discord.png" alt="Discord" class="social-icon-img">
+                    </a>
+                    <a href="mailto:sncorreo4@gmail.com" class="social-link email" target="_blank" rel="noopener" aria-label="Email">
+                        <i class="fas fa-envelope"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Copyright -->
+            <p class="footer-copyright">
+                &copy; 2024 Adrian. Todos los derechos reservados.
+            </p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="../src/scripts/animations.js"></script>
+    <script src="../src/scripts/interactivity.js"></script>
+</body>
+</html>

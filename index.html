@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adrian - Plugin & Bot Configuration Specialist</title>
+    <meta name="description" content="Portfolio de Adrian - Especialista en configuración de plugins y bots de Discord existentes">
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="src/styles/main.css" as="style">
+    <link rel="preload" href="src/scripts/animations.js" as="script">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="src/styles/main.css">
+    <link rel="stylesheet" href="src/styles/variables.css">
+    
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="navbar-container">
+            <div class="navbar-brand">
+                <a href="index.html" class="brand-link">
+                    <span class="brand-text aurora-text" data-text="Adrian">Adrián</span>
+                </a>
+            </div>
+            
+            <div class="navbar-menu" id="navbar-menu">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a href="index.html" class="nav-link active">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="pages/about.html" class="nav-link">Sobre mí</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="pages/services.html" class="nav-link">Servicios</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="pages/projects.html" class="nav-link">Proyectos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="pages/servers.html" class="nav-link">Servidores</a>
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="navbar-toggle" id="navbar-toggle">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-background">
+                <div class="stars"></div>
+            </div>
+            
+            <div class="hero-container">
+                <div class="profile-card" data-aos="fade-up" data-aos-duration="1000">
+                    <div class="profile-avatar">
+                        <img src="https://via.placeholder.com/120x120/FFD700/000000?text=AD" alt="Avatar de Adrián" class="avatar-image">
+                    </div>
+                    
+                    <div class="profile-info">
+                        <h1 class="profile-name aurora-text" data-text="Adrian">Adrian</h1>
+                        <p class="profile-title">Plugin & Bot Configuration Specialist</p>
+                        
+                        <div class="profile-status">
+                            <div class="status-avatar">
+                                <img src="https://via.placeholder.com/24x24/FFD700/000000?text=👤" alt="Status avatar">
+                            </div>
+                            <div class="status-dot"></div>
+                            <span class="status-text">Desconectado</span>
+                        </div>
+                    </div>
+                    
+                    <div class="profile-badge" onclick="toggleBadgeMenu(event)">
+                        <div class="badge-content">
+                            <i class="fas fa-crown badge-icon"></i>
+                            <span class="badge-text">ADMIN</span>
+                        </div>
+                        <div id="badge-menu" class="badge-menu hidden">
+                          <div class="badge-menu-header">
+                            <i class="fas fa-user-shield"></i>
+                            <span>Roles Disponibles</span>
+                          </div>
+                          <ul>
+                            <li onclick="selectRole('OWNER')" class="role-owner">
+                              <i class="fas fa-crown"></i>
+                              <span>Owner</span>
+                              <small>Control total del servidor</small>
+                            </li>
+                            <li onclick="selectRole('ADMIN')" class="role-admin active">
+                              <i class="fas fa-user-shield"></i>
+                              <span>Administrador</span>
+                              <small>Gestión completa del servidor</small>
+                            </li>
+                            <li onclick="selectRole('MODERATOR')" class="role-moderator">
+                              <i class="fas fa-gavel"></i>
+                              <span>Moderador</span>
+                              <small>Moderación y gestión de usuarios</small>
+                            </li>
+                            <li onclick="selectRole('HELPER')" class="role-helper">
+                              <i class="fas fa-hands-helping"></i>
+                              <span>Helper</span>
+                              <small>Asistencia a usuarios</small>
+                            </li>
+                            <li onclick="selectRole('VIP')" class="role-vip">
+                              <i class="fas fa-star"></i>
+                              <span>VIP</span>
+                              <small>Beneficios especiales</small>
+                            </li>
+                          </ul>
+                        </div>
+                    </div>
+                      
+                </div>
+                
+                <!-- Navigation Buttons -->
+                <div class="nav-buttons" data-aos="fade-up" data-aos-delay="300">
+                    <div class="button-row">
+                        <a href="pages/about.html" class="nav-button" data-aos="fade-up" data-aos-delay="400">
+                            <div class="button-icon">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <span class="button-text">Sobre mí</span>
+                        </a>
+                        
+                        <a href="pages/services.html" class="nav-button" data-aos="fade-up" data-aos-delay="500">
+                            <div class="button-icon">
+                                <i class="fas fa-cogs"></i>
+                            </div>
+                            <span class="button-text">Servicios</span>
+                        </a>
+                        
+                        <a href="pages/projects.html" class="nav-button" data-aos="fade-up" data-aos-delay="600">
+                            <div class="button-icon">
+                                <i class="fas fa-project-diagram"></i>
+                            </div>
+                            <span class="button-text">Proyectos</span>
+                        </a>
+                        
+                        <a href="pages/servers.html" class="nav-button" data-aos="fade-up" data-aos-delay="700">
+                            <div class="button-icon">
+                                <i class="fas fa-server"></i>
+                            </div>
+                            <span class="button-text">Servidores</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Social Links -->
+                <div class="social-links" data-aos="fade-up" data-aos-delay="800">
+                    <a href="https://discord.com/users/.adriii_" class="social-link discord" target="_blank" rel="noopener" aria-label="Discord">
+                        <img src="public/assets/discord.png" alt="Discord" class="social-icon-img">
+                    </a>
+                    
+                    <a href="mailto:sncorreo4@gmail.com" class="social-link email" target="_blank" rel="noopener" aria-label="Email">
+                        <i class="fas fa-envelope"></i>
+                    </a>
+                    
+                    <a href="https://linkedin.com/in/your-profile" class="social-link linkedin" target="_blank" rel="noopener" aria-label="LinkedIn">
+                        <img src="public/assets/linkedin.png" alt="LinkedIn" class="social-icon-img">
+                    </a>
+                    
+                    <a href="https://twitter.com/your-handle" class="social-link twitter" target="_blank" rel="noopener" aria-label="Twitter">
+                        <img src="public/assets/twitter.png" alt="Twitter" class="social-icon-img">
+                    </a>
+                    
+                    <a href="https://instagram.com/your-handle" class="social-link instagram" target="_blank" rel="noopener" aria-label="Instagram">
+                        <img src="public/assets/instagram.png" alt="Instagram" class="social-icon-img">
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer-modern">
+        <div class="footer-container">
+            <div class="footer-content">
+                <!-- Logo y Brand -->
+                <div class="footer-brand">
+                    <div class="brand-logo">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 200 200" width="48" height="48" class="logo-icon">
+                            <g clipPath="url(#cs_clip_1_flower-3)">
+                                <mask id="cs_mask_1_flower-3" style="mask-type: alpha;" width="200" height="200" x="0" y="0" maskUnits="userSpaceOnUse">
+                                    <path fill="#fff" d="M200 50c0-27.614-22.386-50-50-50s-50 22.386-50 50c0-27.614-22.386-50-50-50S0 22.386 0 50s22.386 50 50 50c-27.614 0-50 22.386-50 50s22.386 50 50 50 50-22.386 50-50c0 27.614 22.386 50 50 50s50-22.386 50-50c0-27.608-22.375-49.989-49.98-50C177.625 99.99 200 77.608 200 50z"></path>
+                                </mask>
+                                <g mask="url(#cs_mask_1_flower-3)">
+                                    <path fill="#fff" d="M200 0H0v200h200V0z"></path>
+                                    <path fill="url(#paint0_linear_748_4691)" fill-opacity="0.55" d="M200 0H0v200h200V0z"></path>
+                                    <g filter="url(#filter0_f_748_4691)">
+                                        <path fill="#FFD700" d="M131 3H-12v108h143V3z"></path>
+                                        <path fill="#E6C200" d="M190 109H0v116h190V109z"></path>
+                                        <ellipse cx="153.682" cy="64.587" fill="#FFD700" rx="83" ry="57" transform="rotate(-33.875 153.682 64.587)"></ellipse>
+                                    </g>
+                                </g>
+                            </g>
+                            <defs>
+                                <filter id="filter0_f_748_4691" width="361.583" height="346.593" x="-72" y="-61.593" colorInterpolationFilters="sRGB" filterUnits="userSpaceOnUse">
+                                    <feFlood floodOpacity="0" result="BackgroundImageFix"></feFlood>
+                                    <feBlend in="SourceGraphic" in2="BackgroundImageFix" result="shape"></feBlend>
+                                    <feGaussianBlur result="effect1_foregroundBlur_748_4691" stdDeviation="30"></feGaussianBlur>
+                                </filter>
+                                <linearGradient id="paint0_linear_748_4691" x1="200" x2="0" y1="0" y2="200" gradientUnits="userSpaceOnUse">
+                                    <stop stopColor="#FFD700"></stop>
+                                    <stop offset="1" stopColor="#E6C200"></stop>
+                                </linearGradient>
+                                <clipPath id="cs_clip_1_flower-3">
+                                    <path fill="#fff" d="M0 0H200V200H0z"></path>
+                                </clipPath>
+                            </defs>
+                            <g style="mix-blend-mode: overlay;" mask="url(#cs_mask_1_flower-3)">
+                                <path fill="gray" stroke="transparent" d="M200 0H0v200h200V0z" filter="url(#cs_noise_1_flower-3)"></path>
+                            </g>
+                            <defs>
+                                <filter id="cs_noise_1_flower-3" width="100%" height="100%" x="0%" y="0%" filterUnits="objectBoundingBox">
+                                    <feTurbulence baseFrequency="0.6" numOctaves="5" result="out1" seed="4"></feTurbulence>
+                                    <feComposite in="out1" in2="SourceGraphic" operator="in" result="out2"></feComposite>
+                                    <feBlend in="SourceGraphic" in2="out2" mode="overlay" result="out3"></feBlend>
+                                </filter>
+                            </defs>
+                        </svg>
+                    </div>
+                    <span class="brand-text aurora-text" data-text="Adrian">Adrian</span>
+                </div>
+
+                <!-- Navigation Links -->
+                <nav class="footer-nav">
+                    <ul class="nav-links">
+                        <li><a href="pages/about.html" class="nav-link">Sobre mí</a></li>
+                        <li><a href="pages/services.html" class="nav-link">Servicios</a></li>
+                        <li><a href="pages/projects.html" class="nav-link">Proyectos</a></li>
+                        <li><a href="pages/servers.html" class="nav-link">Servidores</a></li>
+                    </ul>
+                </nav>
+
+                <!-- Social Links -->
+                <div class="social-links">
+                    <a href="https://discord.com/users/.adriii_" class="social-link discord" target="_blank" rel="noopener" aria-label="Discord">
+                        <img src="public/assets/discord.png" alt="Discord" class="social-icon-img">
+                    </a>
+                    
+                    <a href="mailto:sncorreo4@gmail.com" class="social-link email" target="_blank" rel="noopener" aria-label="Email">
+                        <i class="fas fa-envelope"></i>
+                    </a>
+                    
+                    <a href="https://linkedin.com/in/your-profile" class="social-link linkedin" target="_blank" rel="noopener" aria-label="LinkedIn">
+                        <img src="public/assets/linkedin.png" alt="LinkedIn" class="social-icon-img">
+                    </a>
+                    
+                    <a href="https://twitter.com/your-handle" class="social-link twitter" target="_blank" rel="noopener" aria-label="Twitter">
+                        <img src="public/assets/twitter.png" alt="Twitter" class="social-icon-img">
+                    </a>
+                    
+                    <a href="https://instagram.com/your-handle" class="social-link instagram" target="_blank" rel="noopener" aria-label="Instagram">
+                        <img src="public/assets/instagram.png" alt="Instagram" class="social-icon-img">
+                    </a>
+                </div>
+
+                <!-- Copyright -->
+                <p class="footer-copyright">
+                    &copy; 2025 Adrian. Todos los derechos reservados.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="src/scripts/animations.js"></script>
+    <script src="src/scripts/interactivity.js"></script>
+    
+    <script>
+        function toggleBadgeMenu(event) {
+          event.stopPropagation();
+          const menu = document.getElementById("badge-menu");
+          menu.classList.toggle("hidden");
+        }
+        
+        function selectRole(role) {
+          const badgeText = document.querySelector(".badge-text");
+          const badgeIcon = document.querySelector(".badge-icon");
+          const allRoleItems = document.querySelectorAll(".badge-menu li");
+          
+          // Remove active class from all items
+          allRoleItems.forEach(item => item.classList.remove("active"));
+          
+          // Add active class to selected role
+          event.target.closest('li').classList.add("active");
+          
+          // Update badge content based on role
+          switch(role) {
+            case 'OWNER':
+              badgeText.textContent = 'OWNER';
+              badgeIcon.className = 'fas fa-crown badge-icon';
+              break;
+            case 'ADMIN':
+              badgeText.textContent = 'ADMIN';
+              badgeIcon.className = 'fas fa-user-shield badge-icon';
+              break;
+            case 'MODERATOR':
+              badgeText.textContent = 'MOD';
+              badgeIcon.className = 'fas fa-gavel badge-icon';
+              break;
+            case 'HELPER':
+              badgeText.textContent = 'HELPER';
+              badgeIcon.className = 'fas fa-hands-helping badge-icon';
+              break;
+            case 'VIP':
+              badgeText.textContent = 'VIP';
+              badgeIcon.className = 'fas fa-star badge-icon';
+              break;
+          }
+          
+          // Close menu
+          const menu = document.getElementById("badge-menu");
+          menu.classList.add("hidden");
+          
+          // Show notification
+          showRoleNotification(role);
+        }
+        
+        function showRoleNotification(role) {
+          const notification = document.createElement('div');
+          notification.className = 'role-notification';
+          notification.innerHTML = `
+            <i class="fas fa-check-circle"></i>
+            <span>Rol cambiado a: ${role}</span>
+          `;
+          document.body.appendChild(notification);
+          
+          setTimeout(() => {
+            notification.classList.add('show');
+          }, 100);
+          
+          setTimeout(() => {
+            notification.classList.remove('show');
+            setTimeout(() => {
+              document.body.removeChild(notification);
+            }, 300);
+          }, 2000);
+        }
+      
+        document.addEventListener("click", function (e) {
+          const menu = document.getElementById("badge-menu");
+          const badge = document.querySelector(".profile-badge");
+          if (!badge.contains(e.target)) {
+            menu.classList.add("hidden");
+          }
+        });
+      </script>
+      
+
+    <!-- Initialize AOS -->
+    <script>
+        AOS.init({
+            duration: 800,
+            easing: 'ease-in-out',
+            once: true,
+            offset: 100
+        });
+    </script>
+</body>
+</html>

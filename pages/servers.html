@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Servidores - Adrian</title>
+    <meta name="description" content="Servidores en los que he trabajado - Nebula Network, Aurora Network y más">
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="../src/styles/main.css" as="style">
+    <link rel="preload" href="../src/scripts/animations.js" as="script">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="../src/styles/main.css">
+    <link rel="stylesheet" href="../src/styles/variables.css">
+    
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <style>
+        /* Marquee Styles */
+        .marquee-container {
+            overflow: hidden;
+            padding: 2rem 0;
+            --gap: 2rem;
+            gap: var(--gap);
+        }
+        
+        .marquee-content {
+            display: flex;
+            flex-shrink: 0;
+            justify-content: space-around;
+            gap: var(--gap);
+        }
+        
+        .marquee-item {
+            display: flex;
+            gap: 2rem;
+        }
+        
+        .server-card {
+            background: var(--bg-card);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            border-radius: var(--border-radius-xl);
+            padding: var(--spacing-xl);
+            min-width: 300px;
+            text-align: center;
+            transition: var(--transition-normal);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .server-card:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 
+                0 15px 35px rgba(255, 215, 0, 0.2),
+                0 0 25px rgba(255, 215, 0, 0.1);
+            border-color: var(--primary-color);
+        }
+        
+        .server-card.nebula {
+            border-color: #FFD700;
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(255, 215, 0, 0.05));
+        }
+        
+        .server-card.nebula:hover {
+            box-shadow: 
+                0 15px 35px rgba(255, 215, 0, 0.3),
+                0 0 25px rgba(255, 215, 0, 0.2);
+        }
+        
+        .server-card.aurora {
+            border-color: #8B5CF6;
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(139, 92, 246, 0.05));
+        }
+        
+        .server-card.aurora:hover {
+            box-shadow: 
+                0 15px 35px rgba(139, 92, 246, 0.3),
+                0 0 25px rgba(139, 92, 246, 0.2);
+        }
+        
+        .server-card.yours {
+            border-color: var(--primary-color);
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(0, 0, 0, 0.1));
+        }
+        
+        .server-card.yours:hover {
+            box-shadow: 
+                0 15px 35px rgba(255, 215, 0, 0.3),
+                0 0 25px rgba(255, 215, 0, 0.2);
+        }
+        
+        .server-icon {
+            font-size: var(--font-size-4xl);
+            margin-bottom: var(--spacing-md);
+            transition: var(--transition-normal);
+        }
+        
+        .server-card:hover .server-icon {
+            transform: scale(1.1) rotate(5deg);
+            filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.6));
+        }
+        
+        .server-card.nebula .server-icon {
+            color: #FFD700;
+        }
+        
+        .server-card.aurora .server-icon {
+            color: #8B5CF6;
+        }
+        
+        .server-card.yours .server-icon {
+            color: var(--primary-color);
+        }
+        
+        .server-title {
+            font-size: var(--font-size-2xl);
+            font-weight: var(--font-weight-bold);
+            margin-bottom: var(--spacing-sm);
+            transition: var(--transition-normal);
+        }
+        
+        .server-card:hover .server-title {
+            transform: scale(1.05);
+        }
+        
+        .server-card.nebula .server-title {
+            color: #FFD700;
+        }
+        
+        .server-card.aurora .server-title {
+            color: #8B5CF6;
+        }
+        
+        .server-card.yours .server-title {
+            color: var(--primary-color);
+        }
+        
+        .server-description {
+            color: var(--text-secondary);
+            margin-bottom: var(--spacing-lg);
+            line-height: 1.6;
+        }
+        
+        .server-stats {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-sm);
+        }
+        
+        .stat-item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--spacing-sm);
+            font-size: var(--font-size-sm);
+            color: var(--text-secondary);
+        }
+        
+        .stat-icon {
+            font-size: var(--font-size-sm);
+            color: var(--primary-color);
+        }
+        
+        .servers-hero {
+            text-align: center;
+            margin-bottom: var(--spacing-4xl);
+        }
+        
+        .servers-hero h2 {
+            font-size: var(--font-size-4xl);
+            margin-bottom: var(--spacing-md);
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .servers-hero p {
+            font-size: var(--font-size-lg);
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .server-card {
+                min-width: 250px;
+                padding: var(--spacing-lg);
+            }
+            
+            .marquee-container {
+                padding: 1rem 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="navbar-container">
+            <div class="navbar-brand">
+                <a href="../index.html" class="brand-link">
+                    <span class="brand-text aurora-text" data-text="Adrián">Adrián</span>
+                </a>
+            </div>
+            
+            <div class="navbar-menu" id="navbar-menu">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a href="../index.html" class="nav-link">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="about.html" class="nav-link">Sobre mí</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="services.html" class="nav-link">Servicios</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="projects.html" class="nav-link">Proyectos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="servers.html" class="nav-link active">Servidores</a>
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="navbar-toggle" id="navbar-toggle">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Hero Section -->
+        <section class="page-hero">
+            <div class="hero-background">
+                <div class="stars"></div>
+            </div>
+            
+            <div class="hero-container">
+                <div class="hero-content" data-aos="fade-up">
+                    <h1 class="hero-title">Servidores</h1>
+                    <p class="hero-subtitle">Servidores en los que he trabajado y configurado</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Servers Content -->
+        <section class="servers-section">
+            <div class="container">
+                <div class="servers-hero" data-aos="fade-up">
+                    <h2>Servidores Destacados</h2>
+                    <p>He trabajado en la configuración y administración de estos servidores, aplicando mis conocimientos en plugins y bots para crear experiencias únicas.</p>
+                </div>
+
+                <!-- Marquee Container -->
+                <div class="marquee-container" data-aos="fade-up">
+                    <div class="marquee-content" id="marquee-content">
+                        <div class="marquee-item">
+                            <!-- Nebula Network -->
+                            <div class="server-card nebula">
+                                <div class="server-icon">
+                                    <i class="fas fa-network-wired"></i>
+                                </div>
+                                <h3 class="server-title">Nebula Network</h3>
+                                <p class="server-description">
+                                    Red de servidores donde ejercí como Dueño, configurando sistemas 
+                                    de permisos avanzados y automatización completa.
+                                </p>
+                                <div class="server-stats">
+                                    <div class="stat-item">
+                                        <i class="fas fa-users stat-icon"></i>
+                                        <span>100 miembros</span>
+                                    </div>
+                                    <div class="stat-item">
+                                        <i class="fas fa-crown stat-icon"></i>
+                                        <span>Rango: Dueño</span>
+                                    </div>
+                                    <div class="stat-item">
+                                        <i class="fas fa-power-off stat-icon"></i>
+                                        <span>Servidor offline</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Aurora Network -->
+                            <div class="server-card aurora">
+                                <div class="server-icon">
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <h3 class="server-title">Aurora Network</h3>
+                                <p class="server-description">
+                                    Servidor actual donde ejerzo como Dueño, configurando el bot principal 
+                                    de Discord y sistemas de moderación avanzados.
+                                </p>
+                                <div class="server-stats">
+                                    <div class="stat-item">
+                                        <i class="fas fa-users stat-icon"></i>
+                                        <span>2200+ miembros</span>
+                                    </div>
+                                    <div class="stat-item">
+                                        <i class="fas fa-crown stat-icon"></i>
+                                        <span>Rango: Dueño</span>
+                                    </div>
+                                    <div class="stat-item">
+                                        <i class="fas fa-cogs stat-icon"></i>
+                                        <span>15+ plugins configurados</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Your Server -->
+                            <div class="server-card yours">
+                                <div class="server-icon">
+                                    <i class="fas fa-plus-circle"></i>
+                                </div>
+                                <h3 class="server-title">¡Podría ser el tuyo!</h3>
+                                <p class="server-description">
+                                    ¿Tienes un servidor que necesita configuración profesional? 
+                                    Trabajemos juntos para crear la experiencia perfecta.
+                                </p>
+                                <div class="server-stats">
+                                    <div class="stat-item">
+                                        <i class="fas fa-handshake stat-icon"></i>
+                                        <span>Colaboración directa</span>
+                                    </div>
+                                    <div class="stat-item">
+                                        <i class="fas fa-tools stat-icon"></i>
+                                        <span>Configuración personalizada</span>
+                                    </div>
+                                    <div class="stat-item">
+                                        <i class="fas fa-rocket stat-icon"></i>
+                                        <span>Resultados garantizados</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer-modern">
+        <div class="footer-container">
+            <div class="footer-content">
+                <!-- Logo y Brand -->
+                <div class="footer-brand">
+                    <div class="brand-logo">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 200 200" width="48" height="48" class="logo-icon">
+                            <g clipPath="url(#cs_clip_1_flower-3)">
+                                <mask id="cs_mask_1_flower-3" style="mask-type: alpha;" width="200" height="200" x="0" y="0" maskUnits="userSpaceOnUse">
+                                    <path fill="#fff" d="M200 50c0-27.614-22.386-50-50-50s-50 22.386-50 50c0-27.614-22.386-50-50-50S0 22.386 0 50s22.386 50 50 50c-27.614 0-50 22.386-50 50s22.386 50 50 50 50-22.386 50-50c0 27.614 22.386 50 50 50s50-22.386 50-50c0-27.608-22.375-49.989-49.98-50C177.625 99.99 200 77.608 200 50z"></path>
+                                </mask>
+                                <g mask="url(#cs_mask_1_flower-3)">
+                                    <path fill="#fff" d="M200 0H0v200h200V0z"></path>
+                                    <path fill="url(#paint0_linear_748_4691)" fill-opacity="0.55" d="M200 0H0v200h200V0z"></path>
+                                    <g filter="url(#filter0_f_748_4691)">
+                                        <path fill="#FFD700" d="M131 3H-12v108h143V3z"></path>
+                                        <path fill="#E6C200" d="M190 109H0v116h190V109z"></path>
+                                        <ellipse cx="153.682" cy="64.587" fill="#FFD700" rx="83" ry="57" transform="rotate(-33.875 153.682 64.587)"></ellipse>
+                                    </g>
+                                </g>
+                            </g>
+                            <defs>
+                                <filter id="filter0_f_748_4691" width="361.583" height="346.593" x="-72" y="-61.593" colorInterpolationFilters="sRGB" filterUnits="userSpaceOnUse">
+                                    <feFlood floodOpacity="0" result="BackgroundImageFix"></feFlood>
+                                    <feBlend in="SourceGraphic" in2="BackgroundImageFix" result="shape"></feBlend>
+                                    <feGaussianBlur result="effect1_foregroundBlur_748_4691" stdDeviation="30"></feGaussianBlur>
+                                </filter>
+                                <linearGradient id="paint0_linear_748_4691" x1="200" x2="0" y1="0" y2="200" gradientUnits="userSpaceOnUse">
+                                    <stop stopColor="#FFD700"></stop>
+                                    <stop offset="1" stopColor="#E6C200"></stop>
+                                </linearGradient>
+                                <clipPath id="cs_clip_1_flower-3">
+                                    <path fill="#fff" d="M0 0H200V200H0z"></path>
+                                </clipPath>
+                            </defs>
+                            <g style="mix-blend-mode: overlay;" mask="url(#cs_mask_1_flower-3)">
+                                <path fill="gray" stroke="transparent" d="M200 0H0v200h200V0z" filter="url(#cs_noise_1_flower-3)"></path>
+                            </g>
+                            <defs>
+                                <filter id="cs_noise_1_flower-3" width="100%" height="100%" x="0%" y="0%" filterUnits="objectBoundingBox">
+                                    <feTurbulence baseFrequency="0.6" numOctaves="5" result="out1" seed="4"></feTurbulence>
+                                    <feComposite in="out1" in2="SourceGraphic" operator="in" result="out2"></feComposite>
+                                    <feBlend in="SourceGraphic" in2="out2" mode="overlay" result="out3"></feBlend>
+                                </filter>
+                            </defs>
+                        </svg>
+                    </div>
+                    <span class="brand-text aurora-text" data-text="Adrian">Adrian</span>
+                </div>
+
+                <!-- Navigation Links -->
+                <nav class="footer-nav">
+                    <ul class="nav-links">
+                        <li><a href="about.html" class="nav-link">Sobre mí</a></li>
+                        <li><a href="services.html" class="nav-link">Servicios</a></li>
+                        <li><a href="projects.html" class="nav-link">Proyectos</a></li>
+                        <li><a href="servers.html" class="nav-link">Servidores</a></li>
+                    </ul>
+                </nav>
+
+                <!-- Social Links -->
+                <div class="social-links">
+                    <a href="https://discord.com/users/.adriii_" class="social-link discord" target="_blank" rel="noopener" aria-label="Discord">
+                        <img src="../public/assets/discord.png" alt="Discord" class="social-icon-img">
+                    </a>
+                    <a href="mailto:sncorreo4@gmail.com" class="social-link email" target="_blank" rel="noopener" aria-label="Email">
+                        <i class="fas fa-envelope"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Copyright -->
+            <p class="footer-copyright">
+                &copy; 2024 Adrian. Todos los derechos reservados.
+            </p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="../src/scripts/animations.js"></script>
+    <script src="../src/scripts/interactivity.js"></script>
+    
+    <!-- Marquee Animation Script -->
+    <script>
+        class Marquee {
+            constructor(container, options = {}) {
+                this.container = container;
+                this.content = container.querySelector('.marquee-content');
+                this.speed = options.speed || 50;
+                this.pauseOnHover = options.pauseOnHover || false;
+                this.reverse = options.reverse || false;
+                this.vertical = options.vertical || false;
+                this.repeat = options.repeat || 4;
+                
+                this.animX = 0;
+                this.isPaused = false;
+                this.animationId = null;
+                
+                this.init();
+            }
+            
+            init() {
+                // Create multiple copies of content
+                this.createCopies();
+                
+                // Start animation
+                this.animate();
+                
+                // Add hover events
+                if (this.pauseOnHover) {
+                    this.container.addEventListener('mouseenter', () => this.pause());
+                    this.container.addEventListener('mouseleave', () => this.resume());
+                }
+            }
+            
+            createCopies() {
+                const originalContent = this.content.innerHTML;
+                this.content.innerHTML = '';
+                
+                for (let i = 0; i < this.repeat; i++) {
+                    const copy = document.createElement('div');
+                    copy.className = 'marquee-item';
+                    copy.innerHTML = originalContent;
+                    this.content.appendChild(copy);
+                }
+            }
+            
+            animate() {
+                if (!this.content) return;
+                
+                const singleItem = this.content.querySelector('.marquee-item');
+                if (!singleItem) return;
+                
+                const itemSize = this.vertical ? singleItem.offsetHeight : singleItem.offsetWidth;
+                const gap = 32; // 2rem in pixels
+                const loopDistance = itemSize + gap;
+                
+                const delta = this.speed / 1000;
+                const effectiveDelta = this.reverse ? delta : -delta;
+                
+                if (!this.isPaused) {
+                    this.animX += effectiveDelta;
+                    
+                    if (Math.abs(this.animX) >= loopDistance) {
+                        this.animX = this.animX % loopDistance;
+                    }
+                    
+                    if (this.vertical) {
+                        this.content.style.transform = `translateY(${this.animX}px)`;
+                    } else {
+                        this.content.style.transform = `translateX(${this.animX}px)`;
+                    }
+                }
+                
+                this.animationId = requestAnimationFrame(() => this.animate());
+            }
+            
+            pause() {
+                this.isPaused = true;
+            }
+            
+            resume() {
+                this.isPaused = false;
+            }
+            
+            destroy() {
+                if (this.animationId) {
+                    cancelAnimationFrame(this.animationId);
+                }
+            }
+        }
+        
+        // Initialize Marquee when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            const marqueeContainer = document.querySelector('.marquee-container');
+            if (marqueeContainer) {
+                new Marquee(marqueeContainer, {
+                    speed: 30,
+                    pauseOnHover: true,
+                    repeat: 3
+                });
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,53 @@
+{
+  "name": "portfolio-adri",
+  "version": "1.0.0",
+  "description": "Portfolio personal de Adrián - Desarrollador y Manager especializado en soluciones web modernas",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx http-server . -p 3000 -o",
+    "dev": "npx live-server --port=3000 --open=/index.html",
+    "build": "echo 'Build process completed'",
+    "lint": "echo 'Linting completed'",
+    "test": "echo 'Tests completed'"
+  },
+  "keywords": [
+    "portfolio",
+    "developer",
+    "web",
+    "frontend",
+    "backend",
+    "fullstack",
+    "javascript",
+    "html",
+    "css",
+    "responsive"
+  ],
+  "author": {
+    "name": "Adrián",
+    "email": "adrian@portfolio.com",
+    "url": "https://portfolio-adri.com"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-username/portfolio-adri.git"
+  },
+  "bugs": {
+    "url": "https://github.com/your-username/portfolio-adri/issues"
+  },
+  "homepage": "https://portfolio-adri.com",
+  "devDependencies": {
+    "http-server": "^14.1.1",
+    "live-server": "^1.2.2"
+  },
+  "dependencies": {},
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ],
+  "engines": {
+    "node": ">=14.0.0",
+    "npm": ">=6.0.0"
+  }
+}
