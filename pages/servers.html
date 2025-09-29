@@ -21,160 +21,201 @@
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     
     <style>
-        /* Marquee Styles */
-        .marquee-container {
-            overflow: hidden;
-            padding: 2rem 0;
-            --gap: 2rem;
-            gap: var(--gap);
+        /* Server Carousel Styles */
+        .servers-carousel {
+            width: 100%;
+            font-family: var(--font-primary);
         }
         
-        .marquee-content {
+        .servers-container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
             display: flex;
-            flex-shrink: 0;
-            justify-content: space-around;
-            gap: var(--gap);
+            justify-content: center;
+            align-items: center;
         }
         
-        .marquee-item {
+        .servers-list {
             display: flex;
-            gap: 2rem;
+            width: 100%;
+            flex-direction: column;
+            gap: 0.5rem;
+            height: auto;
+        }
+        
+        .server-item {
+            position: relative;
+            cursor: pointer;
+            transition: all 0.5s ease-in-out;
+            width: 100%;
+            height: 250px;
+        }
+        
+        .server-item.active {
+            width: 100%;
+            height: 500px;
         }
         
         .server-card {
-            background: var(--bg-card);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 215, 0, 0.2);
-            border-radius: var(--border-radius-xl);
-            padding: var(--spacing-xl);
-            min-width: 300px;
-            text-align: center;
-            transition: var(--transition-normal);
             position: relative;
+            height: 100%;
+            width: 100%;
             overflow: hidden;
+            border-radius: 1rem;
+            background: #000;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+            transition: transform 0.5s ease-in-out;
+            transform: translateZ(0);
         }
         
         .server-card:hover {
-            transform: translateY(-5px) scale(1.02);
-            box-shadow: 
-                0 15px 35px rgba(255, 215, 0, 0.2),
-                0 0 25px rgba(255, 215, 0, 0.1);
-            border-color: var(--primary-color);
-        }
-        
-        .server-card.nebula {
-            border-color: #FFD700;
-            background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(255, 215, 0, 0.05));
-        }
-        
-        .server-card.nebula:hover {
-            box-shadow: 
-                0 15px 35px rgba(255, 215, 0, 0.3),
-                0 0 25px rgba(255, 215, 0, 0.2);
-        }
-        
-        .server-card.aurora {
-            border-color: #8B5CF6;
-            background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(139, 92, 246, 0.05));
-        }
-        
-        .server-card.aurora:hover {
-            box-shadow: 
-                0 15px 35px rgba(139, 92, 246, 0.3),
-                0 0 25px rgba(139, 92, 246, 0.2);
-        }
-        
-        .server-card.yours {
-            border-color: var(--primary-color);
-            background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(0, 0, 0, 0.1));
-        }
-        
-        .server-card.yours:hover {
-            box-shadow: 
-                0 15px 35px rgba(255, 215, 0, 0.3),
-                0 0 25px rgba(255, 215, 0, 0.2);
-        }
-        
-        .server-icon {
-            font-size: var(--font-size-4xl);
-            margin-bottom: var(--spacing-md);
-            transition: var(--transition-normal);
-        }
-        
-        .server-card:hover .server-icon {
-            transform: scale(1.1) rotate(5deg);
-            filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.6));
-        }
-        
-        .server-card.nebula .server-icon {
-            color: #FFD700;
-        }
-        
-        .server-card.aurora .server-icon {
-            color: #8B5CF6;
-        }
-        
-        .server-card.yours .server-icon {
-            color: var(--primary-color);
-        }
-        
-        .server-title {
-            font-size: var(--font-size-2xl);
-            font-weight: var(--font-weight-bold);
-            margin-bottom: var(--spacing-sm);
-            transition: var(--transition-normal);
-        }
-        
-        .server-card:hover .server-title {
             transform: scale(1.05);
+            z-index: 10;
         }
         
-        .server-card.nebula .server-title {
-            color: #FFD700;
+        .server-image {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            height: 100%;
+            width: auto;
+            max-width: none;
+            transform: translate(-50%, -50%);
+            object-fit: cover;
+            transition: all 0.5s ease-in-out;
         }
         
-        .server-card.aurora .server-title {
-            color: #8B5CF6;
+        .server-item.active .server-image {
+            transform: translate(-50%, -50%) scale(1.05);
+            filter: grayscale(0);
         }
         
-        .server-card.yours .server-title {
-            color: var(--primary-color);
+        .server-item:not(.active) .server-image {
+            filter: grayscale(1);
         }
         
-        .server-description {
-            color: var(--text-secondary);
-            margin-bottom: var(--spacing-lg);
-            line-height: 1.6;
+        .server-overlay {
+            position: absolute;
+            inset: 0;
+            transition: opacity 0.5s;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.3), transparent);
+        }
+        
+        .server-item.active .server-overlay {
+            opacity: 1;
+        }
+        
+        .server-item:not(.active) .server-overlay {
+            opacity: 0;
+        }
+        
+        .server-info {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 1.5rem;
+            color: white;
+            transition: transform 0.7s ease-in-out, opacity 0.7s ease-in-out;
+        }
+        
+        .server-item.active .server-info {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        
+        .server-item:not(.active) .server-info {
+            transform: translateY(2rem);
+            opacity: 0;
+        }
+        
+        .server-role {
+            font-size: 0.875rem;
+            font-weight: 300;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: #d1d5db;
+            margin-bottom: 0.5rem;
+        }
+        
+        .server-name {
+            font-size: 1.5rem;
+            font-weight: bold;
+            line-height: 1.2;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
+            margin-bottom: 0.75rem;
         }
         
         .server-stats {
             display: flex;
-            flex-direction: column;
-            gap: var(--spacing-sm);
+            gap: 1rem;
+            flex-wrap: wrap;
         }
         
-        .stat-item {
+        .server-stat {
             display: flex;
             align-items: center;
-            justify-content: center;
-            gap: var(--spacing-sm);
-            font-size: var(--font-size-sm);
-            color: var(--text-secondary);
+            gap: 0.5rem;
+            font-size: 0.875rem;
+            color: #e5e7eb;
         }
         
-        .stat-icon {
-            font-size: var(--font-size-sm);
+        .server-stat i {
             color: var(--primary-color);
+            font-size: 1rem;
         }
         
+        .server-description {
+            margin-top: 0.75rem;
+            font-size: 0.9rem;
+            color: #d1d5db;
+            line-height: 1.4;
+        }
+        
+        /* Desktop Layout */
+        @media (min-width: 768px) {
+            .servers-list {
+                flex-direction: row;
+                height: 700px; /* Más alto */
+                gap: 1.5%;
+                justify-content: center; /* Centrar el carrusel */
+                align-items: center;
+            }
+            
+            .server-item {
+                width: 8%;
+                height: 100%;
+            }
+            
+            .server-item.active {
+                width: 48%;
+                height: 100%;
+            }
+            
+            .server-info {
+                padding: 2rem;
+            }
+            
+            .server-name {
+                font-size: 3rem;
+            }
+            
+            .server-role {
+                font-size: 1rem;
+            }
+        }
+        
+        /* Hero Section */
         .servers-hero {
             text-align: center;
-            margin-bottom: var(--spacing-4xl);
+            margin-bottom: 3rem;
         }
         
-        .servers-hero h2 {
-            font-size: var(--font-size-4xl);
-            margin-bottom: var(--spacing-md);
+        .servers-hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
             background: var(--gradient-primary);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -182,21 +223,81 @@
         }
         
         .servers-hero p {
-            font-size: var(--font-size-lg);
+            font-size: 1.25rem;
             color: var(--text-secondary);
             max-width: 600px;
             margin: 0 auto;
         }
         
+        /* Instructions */
+        .carousel-instructions {
+            text-align: center;
+            margin: 2rem 0;
+            padding: 1rem;
+            background: rgba(255, 215, 0, 0.1);
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            border-radius: 0.75rem;
+        }
+        
+        .carousel-instructions i {
+            color: var(--primary-color);
+            margin-right: 0.5rem;
+        }
+        
+        /* Stats Section */
+        .servers-stats {
+            margin-top: 4rem;
+            text-align: center;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .stat-card {
+            background: var(--bg-card);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            border-radius: var(--border-radius-xl);
+            padding: 2rem;
+            text-align: center;
+            transition: var(--transition-normal);
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(255, 215, 0, 0.2);
+        }
+        
+        .stat-icon {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 1rem;
+        }
+        
         /* Responsive */
         @media (max-width: 768px) {
-            .server-card {
-                min-width: 250px;
-                padding: var(--spacing-lg);
+            .servers-hero h1 {
+                font-size: 2.5rem;
             }
             
-            .marquee-container {
-                padding: 1rem 0;
+            .servers-container {
+                padding: 1rem;
             }
         }
     </style>
@@ -258,92 +359,81 @@
         <!-- Servers Content -->
         <section class="servers-section">
             <div class="container">
+                <!-- Servers Hero -->
                 <div class="servers-hero" data-aos="fade-up">
-                    <h2>Servidores Destacados</h2>
+                    <h1>Mis Servidores</h1>
                     <p>He trabajado en la configuración y administración de estos servidores, aplicando mis conocimientos en plugins y bots para crear experiencias únicas.</p>
                 </div>
 
-                <!-- Marquee Container -->
-                <div class="marquee-container" data-aos="fade-up">
-                    <div class="marquee-content" id="marquee-content">
-                        <div class="marquee-item">
-                            <!-- Nebula Network -->
-                            <div class="server-card nebula">
-                                <div class="server-icon">
-                                    <i class="fas fa-network-wired"></i>
-                                </div>
-                                <h3 class="server-title">Nebula Network</h3>
-                                <p class="server-description">
-                                    Red de servidores donde ejercí como Dueño, configurando sistemas 
-                                    de permisos avanzados y automatización completa.
-                                </p>
-                                <div class="server-stats">
-                                    <div class="stat-item">
-                                        <i class="fas fa-users stat-icon"></i>
-                                        <span>100 miembros</span>
-                                    </div>
-                                    <div class="stat-item">
-                                        <i class="fas fa-crown stat-icon"></i>
-                                        <span>Rango: Dueño</span>
-                                    </div>
-                                    <div class="stat-item">
-                                        <i class="fas fa-power-off stat-icon"></i>
-                                        <span>Servidor offline</span>
-                                    </div>
-                                </div>
-                            </div>
+                <!-- Carousel Instructions -->
+                <div class="carousel-instructions" data-aos="fade-up" data-aos-delay="200">
+                    <i class="fas fa-mouse-pointer"></i>
+                    <span>Haz clic en cualquier servidor para ver más detalles</span>
+                </div>
 
-                            <!-- Aurora Network -->
-                            <div class="server-card aurora">
-                                <div class="server-icon">
-                                    <i class="fas fa-star"></i>
-                                </div>
-                                <h3 class="server-title">Aurora Network</h3>
-                                <p class="server-description">
-                                    Servidor actual donde ejerzo como Dueño, configurando el bot principal 
-                                    de Discord y sistemas de moderación avanzados.
-                                </p>
-                                <div class="server-stats">
-                                    <div class="stat-item">
-                                        <i class="fas fa-users stat-icon"></i>
-                                        <span>2200+ miembros</span>
-                                    </div>
-                                    <div class="stat-item">
-                                        <i class="fas fa-crown stat-icon"></i>
-                                        <span>Rango: Dueño</span>
-                                    </div>
-                                    <div class="stat-item">
-                                        <i class="fas fa-cogs stat-icon"></i>
-                                        <span>15+ plugins configurados</span>
-                                    </div>
-                                </div>
-                            </div>
+                <!-- Servers Carousel -->
+                <div class="servers-carousel" data-aos="fade-up" data-aos-delay="400">
+                    <div class="servers-container">
+                        <ul class="servers-list" id="servers-list">
+                            <!-- Server items will be dynamically inserted here -->
+                        </ul>
+                    </div>
+                </div>
 
-                            <!-- Your Server -->
-                            <div class="server-card yours">
-                                <div class="server-icon">
-                                    <i class="fas fa-plus-circle"></i>
-                                </div>
-                                <h3 class="server-title">¡Podría ser el tuyo!</h3>
-                                <p class="server-description">
-                                    ¿Tienes un servidor que necesita configuración profesional? 
-                                    Trabajemos juntos para crear la experiencia perfecta.
-                                </p>
-                                <div class="server-stats">
-                                    <div class="stat-item">
-                                        <i class="fas fa-handshake stat-icon"></i>
-                                        <span>Colaboración directa</span>
-                                    </div>
-                                    <div class="stat-item">
-                                        <i class="fas fa-tools stat-icon"></i>
-                                        <span>Configuración personalizada</span>
-                                    </div>
-                                    <div class="stat-item">
-                                        <i class="fas fa-rocket stat-icon"></i>
-                                        <span>Resultados garantizados</span>
-                                    </div>
-                                </div>
+                <!-- Server Stats -->
+                <div class="servers-stats" data-aos="fade-up">
+                    <h2 class="section-title">Estadísticas de Servidores</h2>
+                    <div class="stats-grid">
+                        <div class="stat-card" data-aos="fade-up" data-aos-delay="100">
+                            <div class="stat-icon">
+                                <i class="fas fa-server"></i>
                             </div>
+                            <div class="stat-number">2</div>
+                            <div class="stat-label">Servidores Administrados</div>
+                        </div>
+                        
+                        <div class="stat-card" data-aos="fade-up" data-aos-delay="200">
+                            <div class="stat-icon">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <div class="stat-number">2,300+</div>
+                            <div class="stat-label">Miembros Totales</div>
+                        </div>
+                        
+                        <div class="stat-card" data-aos="fade-up" data-aos-delay="300">
+                            <div class="stat-icon">
+                                <i class="fas fa-crown"></i>
+                            </div>
+                            <div class="stat-number">2</div>
+                            <div class="stat-label">Servidores como Dueño</div>
+                        </div>
+                        
+                        <div class="stat-card" data-aos="fade-up" data-aos-delay="400">
+                            <div class="stat-icon">
+                                <i class="fas fa-cogs"></i>
+                            </div>
+                            <div class="stat-number">15+</div>
+                            <div class="stat-label">Plugins Configurados</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CTA Section -->
+                <div class="cta-section" data-aos="fade-up">
+                    <div class="cta-content">
+                        <h2 class="cta-title">¿Necesitas configurar tu servidor?</h2>
+                        <p class="cta-description">
+                            Trabajemos juntos para configurar tu servidor. Contacta conmigo para discutir tus necesidades de configuración de plugins y bots.
+                        </p>
+                        <div class="cta-buttons">
+                            <a href="https://discord.com/users/.adriii_" class="btn btn-primary" target="_blank">
+                                <i class="fab fa-discord"></i>
+                                Contactar en Discord
+                            </a>
+                            <a href="mailto:sncorreo4@gmail.com" class="btn btn-outline" target="_blank">
+                                <i class="fas fa-envelope"></i>
+                                Enviar Email
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -435,106 +525,157 @@
     <script src="../src/scripts/animations.js"></script>
     <script src="../src/scripts/interactivity.js"></script>
     
-    <!-- Marquee Animation Script -->
+    <!-- Servers Carousel Script -->
     <script>
-        class Marquee {
-            constructor(container, options = {}) {
+        class ServersCarousel {
+            constructor(container, servers) {
                 this.container = container;
-                this.content = container.querySelector('.marquee-content');
-                this.speed = options.speed || 50;
-                this.pauseOnHover = options.pauseOnHover || false;
-                this.reverse = options.reverse || false;
-                this.vertical = options.vertical || false;
-                this.repeat = options.repeat || 4;
-                
-                this.animX = 0;
-                this.isPaused = false;
-                this.animationId = null;
+                this.servers = servers;
+                this.activeIndex = Math.floor(servers.length / 2);
+                this.timeoutRef = null;
                 
                 this.init();
             }
             
             init() {
-                // Create multiple copies of content
-                this.createCopies();
-                
-                // Start animation
-                this.animate();
-                
-                // Add hover events
-                if (this.pauseOnHover) {
-                    this.container.addEventListener('mouseenter', () => this.pause());
-                    this.container.addEventListener('mouseleave', () => this.resume());
-                }
+                this.createServerItems();
+                this.bindEvents();
+                this.updateActiveServer();
             }
             
-            createCopies() {
-                const originalContent = this.content.innerHTML;
-                this.content.innerHTML = '';
+            createServerItems() {
+                this.container.innerHTML = '';
                 
-                for (let i = 0; i < this.repeat; i++) {
-                    const copy = document.createElement('div');
-                    copy.className = 'marquee-item';
-                    copy.innerHTML = originalContent;
-                    this.content.appendChild(copy);
-                }
-            }
-            
-            animate() {
-                if (!this.content) return;
-                
-                const singleItem = this.content.querySelector('.marquee-item');
-                if (!singleItem) return;
-                
-                const itemSize = this.vertical ? singleItem.offsetHeight : singleItem.offsetWidth;
-                const gap = 32; // 2rem in pixels
-                const loopDistance = itemSize + gap;
-                
-                const delta = this.speed / 1000;
-                const effectiveDelta = this.reverse ? delta : -delta;
-                
-                if (!this.isPaused) {
-                    this.animX += effectiveDelta;
+                this.servers.forEach((server, index) => {
+                    const serverItem = document.createElement('li');
+                    serverItem.className = 'server-item';
+                    serverItem.setAttribute('data-index', index);
+                    serverItem.innerHTML = `
+                        <div class="server-card">
+                            <img 
+                                src="${server.image}" 
+                                alt="${server.name}" 
+                                class="server-image"
+                                draggable="false"
+                                onerror="this.src='https://placehold.co/590x640/1f2937/FFD700?text=Server+Image'"
+                            >
+                            <div class="server-overlay"></div>
+                            <div class="server-info">
+                                <p class="server-role">${server.role}</p>
+                                <h3 class="server-name">${server.name}</h3>
+                                <div class="server-stats">
+                                    <div class="server-stat">
+                                        <i class="fas fa-users"></i>
+                                        <span>${server.members}</span>
+                                    </div>
+                                    <div class="server-stat">
+                                        <i class="fas fa-crown"></i>
+                                        <span>${server.role}</span>
+                                    </div>
+                                    <div class="server-stat">
+                                        <i class="fas fa-cogs"></i>
+                                        <span>${server.plugins} plugins</span>
+                                    </div>
+                                </div>
+                                <p class="server-description">${server.description}</p>
+                            </div>
+                        </div>
+                    `;
                     
-                    if (Math.abs(this.animX) >= loopDistance) {
-                        this.animX = this.animX % loopDistance;
+                    this.container.appendChild(serverItem);
+                });
+            }
+            
+            bindEvents() {
+                this.container.addEventListener('click', (e) => {
+                    const serverItem = e.target.closest('.server-item');
+                    if (serverItem) {
+                        const index = parseInt(serverItem.getAttribute('data-index'));
+                        this.setActiveServer(index);
                     }
-                    
-                    if (this.vertical) {
-                        this.content.style.transform = `translateY(${this.animX}px)`;
+                });
+            }
+            
+            setActiveServer(index) {
+                if (index === this.activeIndex) return;
+                
+                this.activeIndex = index;
+                this.updateActiveServer();
+            }
+            
+            updateActiveServer() {
+                const serverItems = this.container.querySelectorAll('.server-item');
+                
+                // Clear timeout if exists
+                if (this.timeoutRef) {
+                    clearTimeout(this.timeoutRef);
+                }
+                
+                // Add transition class
+                this.container.style.setProperty('--transition', '600ms cubic-bezier(0.22, 0.61, 0.36, 1)');
+                
+                // Remove transition after animation
+                this.timeoutRef = setTimeout(() => {
+                    this.container.style.removeProperty('--transition');
+                }, 900);
+                
+                // Update active states
+                serverItems.forEach((item, index) => {
+                    if (index === this.activeIndex) {
+                        item.classList.add('active');
+                        item.setAttribute('aria-current', 'true');
                     } else {
-                        this.content.style.transform = `translateX(${this.animX}px)`;
+                        item.classList.remove('active');
+                        item.setAttribute('aria-current', 'false');
                     }
-                }
-                
-                this.animationId = requestAnimationFrame(() => this.animate());
-            }
-            
-            pause() {
-                this.isPaused = true;
-            }
-            
-            resume() {
-                this.isPaused = false;
-            }
-            
-            destroy() {
-                if (this.animationId) {
-                    cancelAnimationFrame(this.animationId);
-                }
+                });
             }
         }
         
-        // Initialize Marquee when DOM is loaded
+        // Initialize when DOM is loaded
         document.addEventListener('DOMContentLoaded', function() {
-            const marqueeContainer = document.querySelector('.marquee-container');
-            if (marqueeContainer) {
-                new Marquee(marqueeContainer, {
-                    speed: 30,
-                    pauseOnHover: true,
-                    repeat: 3
-                });
+            const serversList = document.getElementById('servers-list');
+            
+            const serversData = [
+                {
+                    name: 'Nebula Network',
+                    role: 'Dueño',
+                    image: '../public/assets/NebulaNetwork.png',
+                    members: '100 miembros',
+                    plugins: '8+',
+                    description: 'Red de servidores donde ejercí como Dueño, configurando sistemas de permisos avanzados y automatización completa.'
+                },
+                {
+                    name: 'Aurora Network',
+                    role: 'Dueño',
+                    image: '../public/assets/AuroraNetwork.png',
+                    members: '2200+ miembros',
+                    plugins: '15+',
+                    description: 'Servidor actual donde ejerzo como Dueño, configurando el bot principal de Discord y sistemas de moderación avanzados.'
+                },
+                {
+                    name: '¡Podría ser el tuyo!',
+                    role: 'Colaboración',
+                    image: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTkwIiBoZWlnaHQ9IjY0MCIgdmlld0JveD0iMCAwIDU5MCA2NDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSI1OTAiIGhlaWdodD0iNjQwIiBmaWxsPSIjMUYyOTM3Ii8+CjxyZWN0IHg9IjI5NSIgeT0iMjgwIiB3aWR0aD0iMTAwIiBoZWlnaHQ9IjgwIiByeD0iNDAiIGZpbGw9IiNGRkQ3MDAiLz4KPHN2ZyB4PSIzMDUiIHk9IjMwMCIgd2lkdGg9IjgwIiBoZWlnaHQ9IjQwIiB2aWV3Qm94PSIwIDAgODAgNDAiIGZpbGw9Im5vbmUiPgo8cGF0aCBkPSJNMzUgMTBIMzVWMTBIMzVIMzVWMTBIMzVIMzVWMTAiIHN0cm9rZT0iIzAwMDAwMCIgc3Ryb2tlLXdpZHRoPSI0IiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4KPHBhdGggZD0iTTEwIDM1SDcwIiBzdHJva2U9IiMwMDAwMDAiIHN0cm9rZS13aWR0aD0iNCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+Cjwvc3ZnPgo8dGV4dCB4PSIyOTUiIHk9IjQwMCIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjI0IiBmb250LXdlaWdodD0iYm9sZCIgZmlsbD0iI0ZGRDcwMCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+Q29sYWJvcmFjaSZvYWN1dGU7bjwvdGV4dD4KPC9zdmc+',
+                    members: 'Personalizado',
+                    plugins: 'A medida',
+                    description: '¿Tienes un servidor que necesita configuración profesional? Trabajemos juntos para crear la experiencia perfecta.'
+                }
+            ];
+            
+            if (serversList) {
+                new ServersCarousel(serversList, serversData);
             }
+        });
+    </script>
+    
+    <!-- Initialize AOS -->
+    <script>
+        AOS.init({
+            duration: 800,
+            easing: 'ease-in-out',
+            once: true,
+            offset: 100
         });
     </script>
 </body>

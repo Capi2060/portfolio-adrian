@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Proyectos - PortfolioAdri</title>
+    <title>Proyectos - Adrian</title>
     <meta name="description" content="Portfolio de configuraciones realizadas - Plugins, bots de Discord y sistemas configurados">
     
     <!-- Preload critical resources -->
@@ -19,6 +19,272 @@
     
     <!-- AOS Animation Library -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <style>
+        /* Image Swiper Styles */
+        .swiper-container {
+            position: relative;
+            display: grid;
+            place-content: center;
+            user-select: none;
+            width: 420px; /* Más ancho para las tarjetas */
+            height: 400px; /* Más alto para ver mejor las imágenes */
+            perspective: 1000px;
+            touch-action: none;
+            margin: 0 auto;
+        }
+        
+        .image-card {
+            position: absolute;
+            cursor: grab;
+            place-self: center;
+            border: 2px solid #374151;
+            border-radius: 1rem;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            will-change: transform;
+            background: #1f2937;
+            transition: transform 0.5s ease, opacity 0.5s ease;
+            width: 380px; /* Más ancho */
+            height: 320px; /* Más alto para acomodar imágenes altas */
+        }
+        
+        .image-card:active {
+            cursor: grabbing;
+        }
+        
+        .image-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            object-position: center;
+            pointer-events: none;
+            background: #1f2937;
+        }
+        
+        /* Remover overlay de las tarjetas - la info va al lado */
+        .image-card .card-overlay {
+            display: none;
+        }
+        
+        /* Contenedor principal con layout de dos columnas */
+        .projects-showcase {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        /* Panel de información lateral */
+        .project-info-panel {
+            background: var(--bg-card);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            border-radius: var(--border-radius-xl);
+            padding: 2rem;
+            transition: var(--transition-normal);
+            min-height: 300px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .project-info-panel:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(255, 215, 0, 0.2);
+        }
+        
+        .project-title {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .project-description {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+        
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .project-tag {
+            background: rgba(255, 215, 0, 0.15);
+            color: var(--primary-color);
+            padding: 0.5rem 1rem;
+            border-radius: 2rem;
+            font-size: 0.9rem;
+            font-weight: 500;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            transition: var(--transition-normal);
+        }
+        
+        .project-tag:hover {
+            background: rgba(255, 215, 0, 0.25);
+            transform: translateY(-2px);
+        }
+        
+        .project-features {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .project-features li {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.75rem;
+            color: var(--text-primary);
+            font-size: 1rem;
+        }
+        
+        .project-features li i {
+            color: var(--primary-color);
+            margin-right: 0.75rem;
+            font-size: 1.1rem;
+        }
+        
+        /* Indicador de tarjeta activa */
+        .active-indicator {
+            text-align: center;
+            margin-bottom: 1rem;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+        
+        .active-indicator i {
+            color: var(--primary-color);
+            margin-right: 0.5rem;
+        }
+        
+        /* Projects Section */
+        .projects-hero {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .projects-hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .projects-hero p {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        /* Instructions */
+        .swipe-instructions {
+            text-align: center;
+            margin: 2rem 0;
+            padding: 1rem;
+            background: rgba(255, 215, 0, 0.1);
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            border-radius: 0.75rem;
+        }
+        
+        .swipe-instructions i {
+            color: var(--primary-color);
+            margin-right: 0.5rem;
+        }
+        
+        /* Stats Section */
+        .projects-stats {
+            margin-top: 4rem;
+            text-align: center;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .stat-card {
+            background: var(--bg-card);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            border-radius: var(--border-radius-xl);
+            padding: 2rem;
+            text-align: center;
+            transition: var(--transition-normal);
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(255, 215, 0, 0.2);
+        }
+        
+        .stat-icon {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 1rem;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .projects-showcase {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                padding: 1rem;
+            }
+            
+            .swiper-container {
+                width: 340px;
+                height: 300px;
+            }
+            
+            .image-card {
+                width: 300px;
+                height: 260px;
+            }
+            
+            .projects-hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .project-info-panel {
+                padding: 1.5rem;
+            }
+            
+            .project-title {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
 </head>
 <body>
     <!-- Navigation -->
@@ -69,7 +335,7 @@
             <div class="hero-container">
                 <div class="hero-content" data-aos="fade-up">
                     <h1 class="hero-title">Proyectos</h1>
-                    <p class="hero-subtitle">Explora mi portfolio de proyectos desarrollados</p>
+                    <p class="hero-subtitle">Explora mis configuraciones realizadas</p>
                 </div>
             </div>
         </section>
@@ -77,137 +343,52 @@
         <!-- Projects Content -->
         <section class="projects-section">
             <div class="container">
-                <!-- Filter Tabs -->
-                <div class="project-filters" data-aos="fade-up">
-                    <button class="filter-btn active" data-filter="all">Todos</button>
-                    <button class="filter-btn" data-filter="discord">Configuración de Bots</button>
-                    <button class="filter-btn" data-filter="minecraft">Plugins Minecraft</button>
-                    <button class="filter-btn" data-filter="automation">Sistemas de Tickets</button>
-                    <button class="filter-btn" data-filter="tools">Permisos & Menús</button>
+                <!-- Projects Hero -->
+                <div class="projects-hero" data-aos="fade-up">
+                    <h1>Mis Configuraciones</h1>
+                    <p>Desliza las tarjetas para explorar los proyectos que he configurado. Cada proyecto representa una solución única para servidores Discord y Minecraft.</p>
                 </div>
 
-                <!-- Projects Grid -->
-                <div class="projects-grid">
-                    <!-- Project 1 -->
-                    <div class="project-card" data-category="discord automation" data-aos="fade-up" data-aos-delay="100">
-                        <div class="project-image">
-                            <img src="../public/assets/projects/discord-bot-config.jpg" alt="Configuración de Bot Discord" class="project-img">
-                            <div class="project-overlay">
-                                <div class="project-links">
-                                    <a href="#" class="project-link" title="Ver Demo">
-                                        <i class="fas fa-external-link-alt"></i>
-                                    </a>
-                                    <a href="#" class="project-link" title="Ver Configuración">
-                                        <i class="fas fa-code"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="project-content">
-                            <div class="project-tags">
-                                <span class="tag">MEE6</span>
-                                <span class="tag">Carl-bot</span>
-                                <span class="tag">Autoroles</span>
-                            </div>
-                            <h3 class="project-title">Configuración de Bot de Moderación</h3>
-                            <p class="project-description">
-                                Configuración completa de bot de Discord con sistema de autoroles automático, 
-                                comandos personalizados, sistema de logs y moderación automática.
-                            </p>
-                            <div class="project-stats">
-                                <span class="stat">
-                                    <i class="fas fa-clock"></i>
-                                    1 semana
-                                </span>
-                                <span class="stat">
-                                    <i class="fas fa-users"></i>
-                                    1000+ miembros
-                                </span>
-                            </div>
-                        </div>
-                    </div>
+                <!-- Swipe Instructions -->
+                <div class="swipe-instructions" data-aos="fade-up" data-aos-delay="200">
+                    <i class="fas fa-hand-pointer"></i>
+                    <span>Desliza las tarjetas hacia la izquierda o derecha para navegar</span>
+                </div>
 
-                    <!-- Project 2 -->
-                    <div class="project-card" data-category="minecraft tools" data-aos="fade-up" data-aos-delay="200">
-                        <div class="project-image">
-                            <img src="../public/assets/projects/luckperms-config.jpg" alt="Configuración LuckPerms" class="project-img">
-                            <div class="project-overlay">
-                                <div class="project-links">
-                                    <a href="#" class="project-link" title="Ver Demo">
-                                        <i class="fas fa-external-link-alt"></i>
-                                    </a>
-                                    <a href="#" class="project-link" title="Ver Configuración">
-                                        <i class="fas fa-code"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="project-content">
-                            <div class="project-tags">
-                                <span class="tag">LuckPerms</span>
-                                <span class="tag">Rangos</span>
-                                <span class="tag">Permisos</span>
-                            </div>
-                            <h3 class="project-title">Sistema de Permisos Completo</h3>
-                            <p class="project-description">
-                                Configuración completa de LuckPerms con sistema de rangos jerárquico, 
-                                permisos personalizados y grupos de usuarios para servidor de Minecraft.
-                            </p>
-                            <div class="project-stats">
-                                <span class="stat">
-                                    <i class="fas fa-clock"></i>
-                                    3 días
-                                </span>
-                                <span class="stat">
-                                    <i class="fas fa-users"></i>
-                                    50+ rangos
-                                </span>
-                            </div>
-                        </div>
+                <!-- Projects Showcase -->
+                <div class="projects-showcase" data-aos="fade-up" data-aos-delay="400">
+                    <!-- Image Swiper -->
+                    <div class="swiper-container" id="image-swiper">
+                        <!-- Cards will be dynamically inserted here -->
                     </div>
-
-                    <!-- Project 3 -->
-                    <div class="project-card" data-category="automation tools" data-aos="fade-up" data-aos-delay="300">
-                        <div class="project-image">
-                            <img src="../public/assets/projects/ticket-system.jpg" alt="Sistema de Tickets" class="project-img">
-                            <div class="project-overlay">
-                                <div class="project-links">
-                                    <a href="#" class="project-link" title="Ver Demo">
-                                        <i class="fas fa-external-link-alt"></i>
-                                    </a>
-                                    <a href="#" class="project-link" title="Ver Configuración">
-                                        <i class="fas fa-code"></i>
-                                    </a>
-                                </div>
-                            </div>
+                    
+                    <!-- Project Info Panel -->
+                    <div class="project-info-panel" id="project-info">
+                        <div class="active-indicator">
+                            <i class="fas fa-info-circle"></i>
+                            <span>Información del proyecto</span>
                         </div>
-                        <div class="project-content">
-                            <div class="project-tags">
-                                <span class="tag">Ticket Tool</span>
-                                <span class="tag">Reportes</span>
-                                <span class="tag">Discord</span>
-                            </div>
-                            <h3 class="project-title">Sistema de Tickets y Reportes</h3>
-                            <p class="project-description">
-                                Configuración completa de sistema de tickets para Discord con categorías 
-                                automáticas, asignación de staff y sistema de reportes integrado.
-                            </p>
-                            <div class="project-stats">
-                                <span class="stat">
-                                    <i class="fas fa-clock"></i>
-                                    2 días
-                                </span>
-                                <span class="stat">
-                                    <i class="fas fa-ticket-alt"></i>
-                                    500+ tickets
-                                </span>
-                            </div>
+                        <h2 class="project-title" id="project-title">Sistema de Scoreboard</h2>
+                        <p class="project-description" id="project-description">
+                            Configuración avanzada de scoreboard con LuckPerms y PlaceholderAPI. 
+                            Sistema completo de puntuación y ranking para servidores Minecraft.
+                        </p>
+                        <div class="project-tags" id="project-tags">
+                            <span class="project-tag">LuckPerms</span>
+                            <span class="project-tag">PlaceholderAPI</span>
+                            <span class="project-tag">Scoreboard</span>
                         </div>
+                        <ul class="project-features" id="project-features">
+                            <li><i class="fas fa-check"></i> Configuración de permisos avanzada</li>
+                            <li><i class="fas fa-check"></i> Sistema de ranking automático</li>
+                            <li><i class="fas fa-check"></i> Placeholders personalizados</li>
+                            <li><i class="fas fa-check"></i> Actualización en tiempo real</li>
+                        </ul>
                     </div>
                 </div>
 
                 <!-- Project Stats -->
-                <div class="project-stats-section" data-aos="fade-up">
+                <div class="projects-stats" data-aos="fade-up">
                     <h2 class="section-title">Estadísticas de Proyectos</h2>
                     <div class="stats-grid">
                         <div class="stat-card" data-aos="fade-up" data-aos-delay="100">
@@ -223,7 +404,7 @@
                                 <i class="fas fa-users"></i>
                             </div>
                             <div class="stat-number">5,000+</div>
-                            <div class="stat-label">Usuarios</div>
+                            <div class="stat-label">Usuarios Configurados</div>
                         </div>
                         
                         <div class="stat-card" data-aos="fade-up" data-aos-delay="300">
@@ -251,10 +432,16 @@
                         <p class="cta-description">
                             Trabajemos juntos para configurar tu servidor. Contacta conmigo para discutir tus necesidades de configuración de plugins y bots.
                         </p>
-                        <a href="#" class="btn btn-primary">
-                            <i class="fas fa-rocket"></i>
-                            Configurar Plugins
-                        </a>
+                        <div class="cta-buttons">
+                            <a href="https://discord.com/users/.adriii_" class="btn btn-primary" target="_blank">
+                                <i class="fab fa-discord"></i>
+                                Contactar en Discord
+                            </a>
+                            <a href="mailto:sncorreo4@gmail.com" class="btn btn-outline" target="_blank">
+                                <i class="fas fa-envelope"></i>
+                                Enviar Email
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -315,10 +502,10 @@
                 <!-- Navigation Links -->
                 <nav class="footer-nav">
                     <ul class="nav-links">
-                        <li><a href="about.html" class="nav-link">Sobre mí</a></li>
-                        <li><a href="services.html" class="nav-link">Servicios</a></li>
-                        <li><a href="projects.html" class="nav-link">Proyectos</a></li>
-                        <li><a href="servers.html" class="nav-link">Servidores</a></li>
+                        <li><a href="pages/about.html" class="nav-link">Sobre mí</a></li>
+                        <li><a href="pages/services.html" class="nav-link">Servicios</a></li>
+                        <li><a href="pages/projects.html" class="nav-link">Proyectos</a></li>
+                        <li><a href="pages/servers.html" class="nav-link">Servidores</a></li>
                     </ul>
                 </nav>
 
@@ -327,16 +514,29 @@
                     <a href="https://discord.com/users/.adriii_" class="social-link discord" target="_blank" rel="noopener" aria-label="Discord">
                         <img src="../public/assets/discord.png" alt="Discord" class="social-icon-img">
                     </a>
+                    
                     <a href="mailto:sncorreo4@gmail.com" class="social-link email" target="_blank" rel="noopener" aria-label="Email">
                         <i class="fas fa-envelope"></i>
                     </a>
+                    
+                    <a href="https://linkedin.com/in/your-profile" class="social-link linkedin" target="_blank" rel="noopener" aria-label="LinkedIn">
+                        <img src="../public/assets/linkedin.png" alt="LinkedIn" class="social-icon-img">
+                    </a>
+                    
+                    <a href="https://twitter.com/your-handle" class="social-link twitter" target="_blank" rel="noopener" aria-label="Twitter">
+                        <img src="../public/assets/twitter.png" alt="Twitter" class="social-icon-img">
+                    </a>
+                    
+                    <a href="https://instagram.com/your-handle" class="social-link instagram" target="_blank" rel="noopener" aria-label="Instagram">
+                        <img src="../public/assets/instagram.png" alt="Instagram" class="social-icon-img">
+                    </a>
                 </div>
-            </div>
 
-            <!-- Copyright -->
-            <p class="footer-copyright">
-                &copy; 2024 Adrian. Todos los derechos reservados.
-            </p>
+                <!-- Copyright -->
+                <p class="footer-copyright">
+                    &copy; 2025 Adrian. Todos los derechos reservados.
+                </p>
+            </div>
         </div>
     </footer>
 
@@ -344,5 +544,311 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="../src/scripts/animations.js"></script>
     <script src="../src/scripts/interactivity.js"></script>
+    
+    <!-- Image Swiper Script -->
+    <script>
+        class ImageSwiper {
+            constructor(container, options = {}) {
+                this.container = container;
+                this.cards = options.cards || [];
+                this.cardWidth = options.cardWidth || 256;
+                this.cardHeight = options.cardHeight || 352;
+                
+                this.isSwiping = false;
+                this.startX = 0;
+                this.currentX = 0;
+                this.animationFrameId = null;
+                this.cardOrder = Array.from({ length: this.cards.length }, (_, i) => i);
+                
+                this.init();
+            }
+            
+            init() {
+                this.createCards();
+                this.bindEvents();
+                this.updateCardPositions();
+            }
+            
+            createCards() {
+                this.container.innerHTML = '';
+                
+                this.cardOrder.forEach((originalIndex, displayIndex) => {
+                    const card = this.cards[originalIndex];
+                    const cardElement = document.createElement('article');
+                    cardElement.className = 'image-card';
+                    cardElement.style.cssText = `
+                        --i: ${displayIndex};
+                        --swipe-x: 0px;
+                        --swipe-rotate: 0deg;
+                        z-index: ${this.cards.length - displayIndex};
+                        transform: translateY(calc(var(--i) * 10px)) translateZ(calc(var(--i) * -45px)) translateX(var(--swipe-x)) rotate(var(--swipe-rotate));
+                    `;
+                    
+                    cardElement.innerHTML = `
+                        <img src="${card.imageUrl}" alt="${card.title}" draggable="false" onerror="this.src='https://placehold.co/${this.cardWidth}x${this.cardHeight}/2d3748/e2e8f0?text=Image+Not+Found'">
+                    `;
+                    
+                    this.container.appendChild(cardElement);
+                });
+            }
+            
+            getCards() {
+                return Array.from(this.container.querySelectorAll('.image-card'));
+            }
+            
+            getActiveCard() {
+                return this.getCards()[0] || null;
+            }
+            
+            updateCardPositions() {
+                this.getCards().forEach((card, i) => {
+                    card.style.setProperty('--i', i.toString());
+                    card.style.setProperty('--swipe-x', '0px');
+                    card.style.setProperty('--swipe-rotate', '0deg');
+                    card.style.opacity = '1';
+                    card.style.transition = 'transform 0.5s ease, opacity 0.5s ease';
+                });
+            }
+            
+            applySwipeStyles(deltaX) {
+                const card = this.getActiveCard();
+                if (!card) return;
+                
+                const rotation = deltaX * 0.1;
+                const opacity = 1 - Math.abs(deltaX) / (this.cardWidth * 1.5);
+                
+                card.style.setProperty('--swipe-x', `${deltaX}px`);
+                card.style.setProperty('--swipe-rotate', `${rotation}deg`);
+                card.style.opacity = opacity.toString();
+            }
+            
+            handleStart(clientX) {
+                if (this.isSwiping) return;
+                
+                this.isSwiping = true;
+                this.startX = clientX;
+                this.currentX = clientX;
+                
+                const card = this.getActiveCard();
+                if (card) {
+                    card.style.transition = 'none';
+                }
+                
+                if (this.animationFrameId) {
+                    cancelAnimationFrame(this.animationFrameId);
+                }
+            }
+            
+            handleMove(clientX) {
+                if (!this.isSwiping) return;
+                
+                this.currentX = clientX;
+                
+                this.animationFrameId = requestAnimationFrame(() => {
+                    const deltaX = this.currentX - this.startX;
+                    this.applySwipeStyles(deltaX);
+                });
+            }
+            
+            handleEnd() {
+                if (!this.isSwiping) return;
+                
+                this.isSwiping = false;
+                
+                if (this.animationFrameId) {
+                    cancelAnimationFrame(this.animationFrameId);
+                }
+                
+                const deltaX = this.currentX - this.startX;
+                const threshold = this.cardWidth / 3;
+                const card = this.getActiveCard();
+                
+                if (!card) return;
+                
+                card.style.transition = 'transform 0.3s ease, opacity 0.3s ease';
+                
+                if (Math.abs(deltaX) > threshold) {
+                    // Swipe away
+                    const direction = Math.sign(deltaX);
+                    const swipeOutX = direction * (this.cardWidth * 1.5);
+                    
+                    card.style.setProperty('--swipe-x', `${swipeOutX}px`);
+                    card.style.setProperty('--swipe-rotate', `${direction * 15}deg`);
+                    card.style.opacity = '0';
+                    
+                    setTimeout(() => {
+                        this.cardOrder = [...this.cardOrder.slice(1), this.cardOrder[0]];
+                        this.createCards();
+                        this.updateCardPositions();
+                        
+                        // Llamar callback cuando cambie la tarjeta
+                        if (this.onCardChange) {
+                            const currentCardIndex = this.cardOrder[0];
+                            this.onCardChange(currentCardIndex);
+                        }
+                    }, 300);
+                } else {
+                    // Snap back
+                    this.applySwipeStyles(0);
+                }
+            }
+            
+            bindEvents() {
+                const onPointerDown = (e) => this.handleStart(e.clientX);
+                const onPointerMove = (e) => this.handleMove(e.clientX);
+                const onPointerUp = () => this.handleEnd();
+                const onPointerLeave = () => this.handleEnd();
+                
+                this.container.addEventListener('pointerdown', onPointerDown);
+                this.container.addEventListener('pointermove', onPointerMove);
+                this.container.addEventListener('pointerup', onPointerUp);
+                this.container.addEventListener('pointerleave', onPointerLeave);
+            }
+        }
+        
+        // Initialize when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            const swiperContainer = document.getElementById('image-swiper');
+            
+            const cardData = [
+                {
+                    id: 1,
+                    imageUrl: '../public/assets/proyectos/scoreboard.png',
+                    title: 'Sistema de Scoreboard',
+                    description: 'Configuración avanzada de scoreboard con LuckPerms y PlaceholderAPI. Sistema completo de puntuación y ranking para servidores Minecraft.',
+                    tags: ['LuckPerms', 'PlaceholderAPI', 'Scoreboard'],
+                    features: [
+                        'Configuración de permisos avanzada',
+                        'Sistema de ranking automático',
+                        'Placeholders personalizados',
+                        'Actualización en tiempo real'
+                    ]
+                },
+                {
+                    id: 2,
+                    imageUrl: '../public/assets/proyectos/menu-cosmetics.png',
+                    title: 'Menú de Cosméticos',
+                    description: 'Sistema de menú personalizado para cosméticos con DeluxeMenus. Interfaz intuitiva para gestión de items y efectos visuales.',
+                    tags: ['DeluxeMenus', 'Cosméticos', 'Menú'],
+                    features: [
+                        'Interfaz personalizada',
+                        'Sistema de categorías',
+                        'Efectos visuales únicos',
+                        'Gestión de permisos'
+                    ]
+                },
+                {
+                    id: 3,
+                    imageUrl: '../public/assets/proyectos/menu-shop.png',
+                    title: 'Tienda Virtual',
+                    description: 'Configuración completa de tienda con sistema de economía. Plataforma de comercio integrada con múltiples métodos de pago.',
+                    tags: ['Economía', 'Tienda', 'Vault'],
+                    features: [
+                        'Sistema de economía completo',
+                        'Múltiples métodos de pago',
+                        'Gestión de inventario',
+                        'Estadísticas de ventas'
+                    ]
+                },
+                {
+                    id: 4,
+                    imageUrl: '../public/assets/proyectos/menu-recomensas.png',
+                    title: 'Sistema de Recompensas',
+                    description: 'Menú de recompensas diarias y sistema de logros. Gamificación completa para aumentar la participación de usuarios.',
+                    tags: ['Recompensas', 'Logros', 'Sistema'],
+                    features: [
+                        'Recompensas diarias automáticas',
+                        'Sistema de logros progresivos',
+                        'Tracking de progreso',
+                        'Notificaciones personalizadas'
+                    ]
+                },
+                {
+                    id: 5,
+                    imageUrl: '../public/assets/proyectos/discordbot-tickets.png',
+                    title: 'Sistema de Tickets Discord',
+                    description: 'Configuración completa de sistema de tickets para Discord con categorías automáticas, asignación de staff y sistema de reportes integrado.',
+                    tags: ['Discord', 'Tickets', 'Moderación'],
+                    features: [
+                        'Categorías automáticas',
+                        'Asignación de staff',
+                        'Sistema de reportes',
+                        'Logs de actividad'
+                    ]
+                },
+                {
+                    id: 6,
+                    imageUrl: '../public/assets/proyectos/discordbot-autoroles.png',
+                    title: 'Sistema de Autoroles',
+                    description: 'Configuración avanzada de autoroles automáticos para Discord. Sistema de reacciones y roles automáticos basados en reglas personalizadas.',
+                    tags: ['Discord', 'Autoroles', 'Automatización'],
+                    features: [
+                        'Autoroles por reacciones',
+                        'Roles automáticos',
+                        'Sistema de verificación',
+                        'Gestión de permisos'
+                    ]
+                },
+                {
+                    id: 7,
+                    imageUrl: '../public/assets/proyectos/duscordbot-sugerencias.png',
+                    title: 'Sistema de Sugerencias',
+                    description: 'Sistema completo de sugerencias para Discord con votación automática, moderación y seguimiento de propuestas de la comunidad.',
+                    tags: ['Discord', 'Sugerencias', 'Comunidad'],
+                    features: [
+                        'Votación automática',
+                        'Moderación de sugerencias',
+                        'Seguimiento de propuestas',
+                        'Estadísticas de comunidad'
+                    ]
+                }
+            ];
+            
+            if (swiperContainer) {
+                const swiper = new ImageSwiper(swiperContainer, {
+                    cards: cardData,
+                    cardWidth: 380,
+                    cardHeight: 320
+                });
+                
+                // Función para actualizar el panel de información
+                function updateProjectInfo(projectIndex) {
+                    const project = cardData[projectIndex];
+                    if (!project) return;
+                    
+                    document.getElementById('project-title').textContent = project.title;
+                    document.getElementById('project-description').textContent = project.description;
+                    
+                    // Actualizar tags
+                    const tagsContainer = document.getElementById('project-tags');
+                    tagsContainer.innerHTML = project.tags.map(tag => 
+                        `<span class="project-tag">${tag}</span>`
+                    ).join('');
+                    
+                    // Actualizar features
+                    const featuresContainer = document.getElementById('project-features');
+                    featuresContainer.innerHTML = project.features.map(feature => 
+                        `<li><i class="fas fa-check"></i> ${feature}</li>`
+                    ).join('');
+                }
+                
+                // Actualizar información cuando cambie la tarjeta
+                swiper.onCardChange = updateProjectInfo;
+                
+                // Inicializar con la primera tarjeta
+                updateProjectInfo(0);
+            }
+        });
+    </script>
+    
+    <!-- Initialize AOS -->
+    <script>
+        AOS.init({
+            duration: 800,
+            easing: 'ease-in-out',
+            once: true,
+            offset: 100
+        });
+    </script>
 </body>
 </html>
